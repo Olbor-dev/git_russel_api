@@ -6,25 +6,41 @@
     <title>Port Russel</title>
 </head>
 <body>
+    
     <h1>Bienvenue sur le site de gestion de catway de port Russel</h1>
     <hr>
-    <table>
+
+    <h2>Créer un utilisateur</h2>
+    <form action="/add-user" method="POST">
+        <input type="text" name="nom" placeholder="Nom" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <button type="submit">Créer</button>
+    </form>
+    <hr>
+
+    <h2>Liste des utilisateurs</h2>
+    <table border="1" cellpadding="5">
         <thead>
           <tr>
             <th>Nom</th>
             <th>Email</th>
-            <th>Âge</th>
           </tr>
         </thead>
         <tbody>
-          <% users.forEach(user => { %>
-            <tr>
-              <td><%= user.nom %></td>
-              <td><%= user.email %></td>
-              <td><%= user.age %></td>
-            </tr>
-          <% }); %>
+            <% if (users.length === 0) { %>
+                <tr>
+                    <td colspan="2">Pas d'utilisateur pour le moment.</td>
+                </tr>
+            <% } else { %>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.nom %></td>
+                        <td><%= user.email %></td>
+                    </tr>
+                <% }); %>
+            <% } %>
         </tbody>
-      </table>
+    </table>
+
 </body>
 </html>
