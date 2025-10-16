@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Russel</title>
+</head>
+<body>
+    <h1>Bienvenue sur le site de gestion de catway de port Russel</h1>
+    <hr>
+    <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Âge</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user => { %>
+            <tr>
+              <td><%= user.nom %></td>
+              <td><%= user.email %></td>
+              <td><%= user.age %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+</body>
+</html>
