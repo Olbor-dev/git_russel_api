@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modifier un utilisateur</title>
+</head>
+<body>
+  <h1>Modifier un utilisateur</h1>
+  <form action="/update-user/<%= user._id %>" method="POST">
+    <label>Nom :</label><br>
+    <input type="text" name="name" value="<%= user.name %>" required><br><br>
+
+    <label>Email :</label><br>
+    <input type="email" name="email" value="<%= user.email %>" required><br><br>
+
+    <button type="submit">💾 Enregistrer</button>
+  </form>
+
+  <br>
+  <a href="/">← Retour</a>
+</body>
+</html>

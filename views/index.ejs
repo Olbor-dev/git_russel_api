@@ -6,13 +6,13 @@
     <title>Port Russel</title>
 </head>
 <body>
-    
+
     <h1>Bienvenue sur le site de gestion de catway de port Russel</h1>
     <hr>
 
     <h2>Créer un utilisateur</h2>
     <form action="/add-user" method="POST">
-        <input type="text" name="nom" placeholder="Nom" required>
+        <input type="text" name="name" placeholder="Nom" required>
         <input type="email" name="email" placeholder="Email" required>
         <button type="submit">Créer</button>
     </form>
@@ -24,6 +24,8 @@
           <tr>
             <th>Nom</th>
             <th>Email</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
           </tr>
         </thead>
         <tbody>
@@ -34,8 +36,20 @@
             <% } else { %>
                 <% users.forEach(user => { %>
                     <tr>
-                        <td><%= user.nom %></td>
+                        <td><%= user.name %></td>
                         <td><%= user.email %></td>
+                        <td>
+                            <!-- Bouton modifier -->
+                            <form action="/edit-user/<%= user._id %>" method="GET" style="display:inline;">
+                                <button type="submit">✏️</button>
+                            </form>
+                        </td>
+                        <td>
+                            <!-- Bouton supprimer -->
+                            <form action="/delete-user/<%= user._id %>" method="POST" style="display:inline;">
+                              <button type="submit" onclick="return confirm('Supprimer cet utilisateur ?');">🗑️</button>
+                            </form>
+                        </td>  
                     </tr>
                 <% }); %>
             <% } %>
