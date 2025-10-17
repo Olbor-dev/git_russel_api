@@ -14,8 +14,8 @@ exports.getHomePage = async (req, res) => {
 // Crée un utilisateur depuis le formulaire
 exports.createUser = async (req, res) => {
     try {
-      const { name, email } = req.body;
-      await userService.createUser({ name, email });
+      const { name, email, password } = req.body;
+      await userService.createUser({ name, email, password });
       res.redirect('/'); // recharge la page
     } catch (error) {
       console.error('Erreur createUser:', error.message);
