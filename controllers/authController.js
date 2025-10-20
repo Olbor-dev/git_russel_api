@@ -1,53 +1,39 @@
-const userService = require('../services/userService');
+const User = require('../models/userModel');
 
-exports.showLoginPage = (req, res) => {
+// --- Page de login ---
+exports.getLogin = (req, res) => {
   res.render('login', { error: null });
 };
 
-exports.showRegisterPage = (req, res) => {
-  res.render('register', { error: null });
-};
+// --- Authentification ---
+exports.postLogin = async (req, res) => {
+  const { email, password } = req.body; // <-- email au lieu de username
 
-exports.registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-
-    const existingUser = await userService.getUserByEmail(email);
-    if (existingUser) {
-      return res.render('register', { error: 'Cet email est déjà utilisé.' });
-    }
-
-    await userService.createUser({ name, email, password });
-    res.redirect('/login');
-  } catch (error) {
-    console.error('Erreur registerUser:', error);
-    res.render('register', { error: 'Erreur serveur lors de la création.' });
-  }
-};
-
-exports.loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await userService.getUserByEmail(email);
-
+    // 1️⃣ Cherche l'utilisateur par email
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.render('login', { error: 'Utilisateur non trouvé' });
+      return res.render('login', { error: 'Identifiant incorrect' });
     }
 
+    // 2️⃣ Compare le mot de passe via la méthode du modèle
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.render('login', { error: 'Mot de passe incorrect' });
     }
 
-    req.session.user = { id: user._id, name: user.name };
-    res.redirect('/catways');
-  } catch (error) {
-    console.error('Erreur loginUser:', error);
-    res.render('login', { error: 'Erreur serveur' });
+    // 3️⃣ Sauvegarde en session
+    req.session.user = user;
+    res.redirect('/dashboard');
+
+  } catch (err) {
+    console.error('Erreur login :', err);
+    res.status(500).render('login', { error: 'Erreur serveur' });
   }
 };
 
-exports.logoutUser = (req, res) => {
+// --- Déconnexion ---
+exports.logout = (req, res) => {
   req.session.destroy(() => {
     res.redirect('/login');
   });

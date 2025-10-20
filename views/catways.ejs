@@ -6,9 +6,12 @@
   <title>Gestion des catways</title>
 </head>
 <body>
-  <h1>Bienvenue <%= user.name %> 👋</h1>
-  <p>Vous êtes connecté et pouvez gérer vos catways ici.</p>
-
-  <a href="/logout">Déconnexion</a>
+<h1>Liste des catways</h1>
+<ul>
+  <% catways.forEach(c => { %>
+    <li>Catway <%= c.catwayNumber %> — <%= c.catwayType %> — <%= c.catwayState %></li>
+  <% }) %>
+</ul>
+<a href="/dashboard">⬅ Retour</a>
 </body>
 </html>

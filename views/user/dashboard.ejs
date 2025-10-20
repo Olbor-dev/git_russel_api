@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Russel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Bienvenue sur le site de gestion des catways de port Russel</h1>
+    <hr>
+
+    <h2>Créer un utilisateur</h2>
+    <form action="/add-user" method="POST">
+        <input type="text" name="name" placeholder="Nom" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <button type="submit" class="button">Créer</button>
+    </form>
+    <hr>
+
+    <h2>Liste des utilisateurs</h2>
+    <div class="center-container">
+        <a href="/login" class="connectButton">Se connecter</a>
+    </div>
+    <div class="center-container">
+        <table border="1" cellpadding="5" class="center-table">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Mot de passe</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% if (users.length === 0) { %>
+                    <tr>
+                        <td colspan="5">Pas d'utilisateur pour le moment.</td>
+                    </tr>
+                <% } else { %>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.name %></td>
+                            <td><%= user.email %></td>
+                            <td>
+                                <% if (user.password && user.password.length > 0) { %>
+                                    ********
+                                <% } else { %>
+                                    Aucun mot de passe défini
+                                <% } %>
+                            </td>
+                            <td>
+                                <!-- Bouton modifier -->
+                                <form action="/edit-user/<%= user._id %>" method="GET" style="display:inline;">
+                                    <button type="submit">✏️</button>
+                                </form>
+                            </td>
+                            <td>
+                                <!-- Bouton supprimer -->
+                                <form action="/delete-user/<%= user._id %>" method="POST" style="display:inline;">
+                                <button type="submit" onclick="return confirm('Supprimer cet utilisateur ?');">🗑️</button>
+                                </form>
+                            </td>  
+                        </tr>
+                    <% }); %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

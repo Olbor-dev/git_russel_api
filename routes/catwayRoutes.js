@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
+const catwayController = require('../controllers/catwayController');
 const isAuthenticated = require('../middlewares/isAuthenticaded');
 
-router.get('/', isAuthenticated, userController.getUsers);
+router.get('/', isAuthenticated, catwayController.getCatways);
 
 module.exports = router;
