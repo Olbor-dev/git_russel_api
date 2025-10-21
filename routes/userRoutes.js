@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const isAuthenticated = require('../middlewares/isAuthenticaded');
 
-router.get('/', userController.getHomePage);
-router.post('/add-user', userController.createUser);
-router.post('/delete-user/:id', userController.deleteUser);
-// Routes pour la modification de l'utilisateur
-router.get('/edit-user/:id', userController.editUserForm);
-router.post('/update-user/:id', userController.updateUser);
+router.get('/', isAuthenticated, userController.getUsers);
+router.post('/create', isAuthenticated, userController.createUser);
+router.post('/update/:id', isAuthenticated, userController.updateUser);
+router.get('/delete/:id', isAuthenticated, userController.deleteUser);
 
 module.exports = router;

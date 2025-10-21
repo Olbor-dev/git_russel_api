@@ -6,9 +6,69 @@
   <title>Gestion des catways</title>
 </head>
 <body>
-  <h1>Bienvenue <%= user.name %> 👋</h1>
-  <p>Vous êtes connecté et pouvez gérer vos catways ici.</p>
+  <h1>Gestion des catways</h1>
+  <a href="/dashboard">Retour au dashboard</a> |
+  <a href="/logout"></a>Déconnexion</a>
 
-  <a href="/logout">Déconnexion</a>
+  <hr>
+
+  <h2>Créer un nouveau catway</h2>
+  <form action="/catways/create" method="POST">
+    <label>Numéro :</label>
+    <input type="number" name="catwayNumber" required>
+
+    <label>Type :</label>
+    <select name="type" required>
+      <option value="short">court</option>
+      <option value="long">long</option>
+    </select>
+
+    <label>État :</label>
+    <input name="catwayState" required value="bon état">
+
+    <button type="submit">Créer</button>
+  </form>
+
+  <hr>
+
+  <h2>Liste des catways</h2>
+
+  <% if (catways.length === 0) { %>
+    <p>Aucun catway enregistré.</p>
+  <% } else { %>
+    <table border="1" cellspacing="0" cellpadding="5">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Type</th>
+          <th>État</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% catways.forEach(catway => { %>
+          <tr>
+            <form action="/catways/update/<%= catway._id %>" method="POST">
+              <td>
+                <input type="number" name="catwayNumber" value="<%= catway.catwayNumber %>" required></td>
+              <td>
+                <select name="type" required>
+                  <option value="short" <%= catway.type === 'short' ? 'selected' : '' %>>court</option>
+                  <option value="long" <%= catway.type === 'long' ? 'selected' : '' %>>long</option>
+                </select>
+              </td>
+              <td>
+                <input name="catwayState" required value="<%= catway.catwayState %>">
+              </td>
+              <td>
+                <button type="submit">💾 Sauvegarder</button>
+                <a href="/catways/delete/<%= catway._id %>" onclick="return confirm('Supprimer ce catway ?')">🗑 Supprimer</a>
+              </td>
+            </form>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
 </body>
 </html>
