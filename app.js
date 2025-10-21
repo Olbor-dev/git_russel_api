@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
-//const path = require('path');
+const path = require('path');
 const bodyParser = require('body-parser');
 const MongoStore = require('connect-mongo');
 
@@ -14,7 +14,6 @@ const app = express();
 
 // Connexion à la bdd mongodb
 mongoose.connect('mongodb+srv://olbor_admin:txVrQR81ddJlINPW@backenddb.rciapkp.mongodb.net/?retryWrites=true&w=majority&appName=BackendDb')
-//mongoose.connect('mongodb://127.0.0.1:27017/port_manager')
 .then(() => console.log("Connecté à MongoDB"))
 .catch(() => console.log("La connexion à MongoDB a échouée"));
 
@@ -46,3 +45,11 @@ app.use('/catways', catwayRoutes);
 // Lancement
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Serveur lancé sur http://localhost:${PORT}`));
+
+app.get('/', (req, res) => {
+  if (req.session.user) {
+    res.redirect('/dashboard'); // si connecté → dashboard
+  } else {
+    res.redirect('/login');     // sinon → login
+  }
+});
