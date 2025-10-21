@@ -1,18 +1,18 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-h1 {
+h1, h2, p {
     display: block;
     text-align: center;
     margin: 10px auto;
 }
 
-h2 {
-    display: block;
-    text-align: center;
-    margin: 10px auto;
+hr {
+    width: 50%;
+    margin: 20px auto;
 }
 
 form {
@@ -24,6 +24,13 @@ form {
 
 input {
     margin-top: 5px;
+    text-align: center;
+}
+
+.container-center {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .button {
@@ -33,33 +40,50 @@ input {
     background-color: #007bff;
     color: white;
     text-align: center;
-    text-decoration: none; /* Important pour le <a> */
+    text-decoration: none; /* Important pour les <a> */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
 }
 
-.center-container {
-    text-align: center;
-    width: 100%;
+.button:hover {
+  background-color: #1e40af;     /* bleu un peu plus foncé */
+  transform: scale(1.05);        /* léger zoom au survol */
 }
 
-.connectButton {
-    display: inline-block;
-    margin: 10px;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+.table-container {
+  overflow-x: auto; /* permet de scroller horizontalement sur mobile */
 }
 
-.center-table {
+table {
     width: 80%;
+    min-width: 600px;
     margin: 0 auto;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9em;
+}
+
+th, td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+tr:hover {
+  background-color: #e2e8f0;
+  transition: background 0.3s ease;
 }
