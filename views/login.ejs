@@ -20,11 +20,13 @@
     <hr>
     <h2>Connexion</h2>
     <form method="POST" action="/login">
-      <input type="text" name="email" placeholder="Email utilisateur" required>
-      <input type="password" name="password" placeholder="Mot de passe" required>
-      <button class="button" type="submit">Se connecter</button>
-      <% if (error) { %><p style="color:red;"><%= error %></p><% } %>
+      <div class="form-row">
+        <input type="text" name="email" placeholder="Email utilisateur" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <button class="button" type="submit">Se connecter</button>
+      </div>
     </form>
+    <% if (error) { %><p style="color:red;"><%= error %></p><% } %>
     <hr>
   </main>
   <footer class="container-center">

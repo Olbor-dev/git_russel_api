@@ -6,19 +6,13 @@ exports.getUsers = async (req, res) => {
   res.render('users', { users, user: req.session.user });
 };
 
-/* // Liste des utilisateurs
-exports.getAllUsers = async (req, res) => {
-  const users = await User.find();
-  res.render('users', { users });
-}; */
-
 // Créer un utilisateur
 exports.createUser = async (req, res) => {
   try {
     await User.create(req.body);
     res.redirect('/users');
   } catch (err) {
-    res.status(400).send('Erreur création utilisateur');
+    res.status(400).send('<script>alert("Création utilisateur impossible."); window.location.href="/users";</script>');
   }
 };
 

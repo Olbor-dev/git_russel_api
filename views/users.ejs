@@ -11,24 +11,26 @@
     <h1>Gestion des utilisateurs</h1>
     <div class="container-center">
       <a class="button" href="/dashboard">Retour au dashboard</a>
-      <a hr class="button" href="/logout">Déconnexion</a>
+      <a class="button" href="/logout">Déconnexion</a>
     </div>
     <hr>
   </header>
   <main>
     <h2>Créer un nouvel utilisateur</h2>
     <form action="/users/create" method="POST">
-      <input type="text" name="name" placeholder="Nom" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Mot de passe" required>
-      <button class="button" type="submit">Créer</button>
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Nom" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <button class="button" type="submit">Créer</button>
+      </div>
     </form>
     <hr>
     <h2>Liste des utilisateurs</h2>
     <% if (users.length === 0) { %>
       <p>Aucun utilisateur trouvé.</p>
     <% } else { %>
-    <div class="table-container">
+    <div>
       <table>
         <thead>
           <tr>
@@ -42,17 +44,17 @@
           <% users.forEach(user => { %>
             <tr>
               <form action="/users/update/<%= user._id %>" method="POST">
-                <td><input type="text" name="name" value="<%= user.name %>" required></td>
-                <td><input type="email" name="email" value="<%= user.email %>" required></td>
+                <td><input type="text" name="name" value="<%= user.name %>" required title="Nom de l'utilisateur"></td>
+                <td><input type="email" name="email" value="<%= user.email %>" required title="Email de l'utilisateur (Identifiant)"></td>
                 <td>
                 <!-- Champ mot de passe actuel -->
-                <input type="password" name="currentPassword" placeholder="Actuel" required>
+                <input type="password" name="currentPassword" placeholder="Actuel" required title="Mot de passe actuel à saisir pour modifications">
                 <!-- Nouveau mot de passe (optionnel) -->
-                <input type="password" name="newPassword" placeholder="Nouveau (laisser vide si inchangé)">
+                <input type="password" name="newPassword" placeholder="Nouveau (vide si inchangé)" title="Nouveau mot de passe à saisir si vous voulez en changer">
                 </td>              
                 <td>
-                  <button type="submit">💾 Sauvegarder</button>
-                  <a href="/users/delete/<%= user._id %>" onclick="return confirm('Supprimer cet utilisateur ?')">🗑 Supprimer</a>
+                  <button type="submit" title="Enregistrer les modifications">✏️</button> /
+                  <a href="/users/delete/<%= user._id %>" onclick="return confirm('Supprimer cet utilisateur ?')" title="Supprimer">🗑️</a>
                 </td>
               </form>
             </tr>

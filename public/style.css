@@ -4,6 +4,14 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Responsive : en colonne sur petits écrans */
+@media (max-width: 600px) {
+  form .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 h1, h2, p {
     display: block;
     text-align: center;
@@ -13,13 +21,6 @@ h1, h2, p {
 hr {
     width: 50%;
     margin: 20px auto;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 input {
@@ -47,9 +48,38 @@ input {
     font-size: 16px;
 }
 
-.button:hover {
+.button:hover,
+button:hover {
   background-color: #1e40af;     /* bleu un peu plus foncé */
   transform: scale(1.05);        /* léger zoom au survol */
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin: 10px auto;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Champs et bouton : même hauteur + style cohérent */
+form input,
+form select,
+form button {
+  height: 2rem;
+  padding: 0 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
 .table-container {
@@ -57,13 +87,13 @@ input {
 }
 
 table {
-    width: 80%;
-    min-width: 600px;
-    margin: 0 auto;
-    border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 65%;
+  min-width: 600px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 th {
@@ -75,8 +105,12 @@ th {
 }
 
 th, td {
-  padding: 12px 15px;
+  padding: 6px 10px;
   border-bottom: 1px solid #ddd;
+}
+
+td {
+  text-align: center;
 }
 
 tr:nth-child(even) {
@@ -86,4 +120,26 @@ tr:nth-child(even) {
 tr:hover {
   background-color: #e2e8f0;
   transition: background 0.3s ease;
+}
+
+/* Champs et bouton : même hauteur + style cohérent */
+table input,
+table select,
+table button {
+  height: 1.5rem;
+  padding: 0 6px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+input[name="catwayNumber"] {
+  width: 100px;
+}
+
+input[name="catwayState"] {
+  width: 450px;
 }

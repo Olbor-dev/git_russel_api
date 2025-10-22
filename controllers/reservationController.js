@@ -1,10 +1,10 @@
 const Reservation = require('../models/reservationModel');
 const Catway = require('../models/catwayModel');
 
-// 📋 Liste des réservations
+// Liste des réservations
 exports.getReservations = async (req, res) => {
   try {
-    const reservations = await Reservation.find().sort({ checkIn: 1 });
+    const reservations = await Reservation.find().sort({ catwayNumber: 1, checkOut: 1 });
     const catways = await Catway.find();
     res.render('reservations', { reservations, catways, user: req.session.user, error: null });
   } catch (err) {
@@ -13,7 +13,7 @@ exports.getReservations = async (req, res) => {
   }
 };
 
-// ➕ Créer une réservation
+// Créer une réservation
 exports.createReservation = async (req, res) => {
   try {
     const { catwayNumber, clientName, boatName, checkIn, checkOut } = req.body;
@@ -29,23 +29,17 @@ exports.createReservation = async (req, res) => {
     if (overlap) {
       const reservations = await Reservation.find().sort({ checkIn: 1 });
       const catways = await Catway.find();
-      return res.render('reservations', {
-        reservations,
-        catways,
-        user: req.session.user,
-        error: `❌ Le catway ${catwayNumber} est déjà réservé sur cette période.`
-      });
+      return res.status(406).send('<script>alert("Le catway est déjà réservé sur cette période."); window.location.href="/reservations";</script>');
     }
 
     await Reservation.create(req.body);
     res.redirect('/reservations');
   } catch (err) {
-    console.error('Erreur création réservation:', err);
-    res.status(400).send('Erreur création réservation');
+    res.status(400).send('<script>alert("erreur création réservation."); window.location.href="/reservations";</script>');
   }
 };
 
-// ✏️ Modifier une réservation
+// Modifier une réservation
 exports.updateReservation = async (req, res) => {
   try {
     const { catwayNumber, checkIn, checkOut } = req.body;
@@ -62,29 +56,22 @@ exports.updateReservation = async (req, res) => {
     if (overlap) {
       const reservations = await Reservation.find().sort({ checkIn: 1 });
       const catways = await Catway.find();
-      return res.render('reservations', {
-        reservations,
-        catways,
-        user: req.session.user,
-        error: `❌ Le catway ${catwayNumber} est déjà réservé sur cette période.`
-      });
+      return res.status(406).send('<script>alert("Le catway est déjà réservé sur cette période."); window.location.href="/reservations";</script>');
     }
 
     await Reservation.findByIdAndUpdate(req.params.id, req.body);
     res.redirect('/reservations');
   } catch (err) {
-    console.error('Erreur mise à jour réservation:', err);
-    res.status(400).send('Erreur mise à jour réservation');
+    res.status(400).send('<script>alert("Erreur de mise à jour de la réservation."); window.location.href="/reservations";</script>');
   }
 };
 
-// ❌ Supprimer
+// Supprimer
 exports.deleteReservation = async (req, res) => {
   try {
     await Reservation.findByIdAndDelete(req.params.id);
     res.redirect('/reservations');
   } catch (err) {
-    console.error('Erreur suppression réservation:', err);
-    res.status(400).send('Erreur suppression réservation');
+    res.status(400).send('<script>alert("Erreur suppression réservation."); window.location.href="/reservations";</script>');
   }
 };
