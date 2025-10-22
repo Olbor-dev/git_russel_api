@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservations - Capitainerie de Russel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+  <h1>Gestion des réservations</h1>
+  <div class="container-center">
+    <a class="button" href="/dashboard">Retour au tableau de bord</a>
+    <a class="button" href="/logout">Déconnexion</a>
+  </div>
+  <hr>
+  </header>
+  <main>
+    <h2>Nouvelle réservation</h2>
+    <form action="/reservations/create" method="POST">
+      <div class="form-row">
+        <select name="catwayNumber" required>
+          <% catways.forEach(catway => { %>
+            <option value="<%= catway.catwayNumber %>"><%= catway.catwayNumber %> - <%= catway.type %></option>
+          <% }) %>
+        </select>
+        <input type="text" name="clientName" placeholder="Nom du client" required>
+        <input type="text" name="boatName" placeholder="Nom du bateau" required>
+        <input type="date" name="checkIn" required>
+        <input type="date" name="checkOut" required>
+        <button class="button" type="submit">Créer</button>
+      </div>
+    </form>
+    <hr>
+    <h2>Liste des réservations</h2>
+    <% if (reservations.length === 0) { %>
+      <p>Aucune réservation enregistrée.</p>
+    <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Catway</th>
+            <th>Client</th>
+            <th>Bateau</th>
+            <th>Arrivée</th>
+            <th>Départ</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% reservations.forEach(r => { %>
+            <tr>
+              <form action="/reservations/update/<%= r._id %>" method="POST">
+                <td><input type="number" name="catwayNumber" value="<%= r.catwayNumber %>" required title="Numéro du catway"></td>
+                <td><input type="text" name="clientName" value="<%= r.clientName %>" required title="Nom du client"></td>
+                <td><input type="text" name="boatName" value="<%= r.boatName %>" required title="Nom du bateau"></td>
+                <td><input type="date" name="checkIn" value="<%= r.checkIn.toISOString().split('T')[0] %>" required title="Date d'arrivée"></td>
+                <td><input type="date" name="checkOut" value="<%= r.checkOut.toISOString().split('T')[0] %>" required title="Date de départ"></td>
+                <td>
+                  <button type="submit" title="Enregistrer les modifications">✏️</button> / 
+                  <a href="/reservations/delete/<%= r._id %>" onclick="return confirm('Supprimer cette réservation ?')" title="Supprimer la réservation">🗑️</a>
+                </td>
+              </form>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+  <footer>
+    
+  </footer>
+</body>
+</html>

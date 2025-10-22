@@ -3,16 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion</title>
+  <title>Capitainerie de Russel</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Connexion</h1>
-  <form method="POST" action="/login">
-    <input type="text" name="email" placeholder="Email utilisateur" required>
-    <input type="password" name="password" placeholder="Mot de passe" required>
-    <button type="submit">Se connecter</button>
+  <header>
+    <h1>Port de plaisance de Russel</h1>
+    <hr>
+  </header>
+  <main>
+    <h2>Bienvenue</h2>
+    <p>dans l'application de gestion des réservations de catways.</p>
+    <div class="container-center">
+      <a class="button" href="GestionCatwaysRussel.pdf" target="_blank" rel="noopener noreferrer">Documentation de l'application</a>
+    </div>
+    <hr>
+    <h2>Connexion</h2>
+    <form method="POST" action="/login">
+      <div class="form-row">
+        <input type="text" name="email" placeholder="Email utilisateur" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <button class="button" type="submit">Se connecter</button>
+      </div>
+    </form>
     <% if (error) { %><p style="color:red;"><%= error %></p><% } %>
-  </form>
+    <hr>
+  </main>
+  <footer class="container-center">
+    <small>© Olivier Bordage / API Port Russel / <time>2025</time></small>
+  </footer>
 </body>
 </html>
 

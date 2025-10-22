@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tableau de bord - Capitainerie de Russel</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Bienvenue <%= user.name %> !</h1>
-    <a href="/users">Gérer les utilisateurs</a> |
-    <a href="/catways">Gérer les catways</a> |
-    <a href="/logout">Déconnexion</a>
+    <header>
+        <h1>Bienvenue <%= user.name %> !</h1>
+        <hr>
+    </header>
+    <main>
+        <h2>Tableau de bord</h2>
+        <div class="container-center">
+            <a class="button" href="/users">Gérer les utilisateurs</a>
+            <a class="button" href="/catways">Gérer les catways</a>
+            <a class="button" href="/reservations">Gérer les réservations</a>
+            <a class="button" href="/logout">Déconnexion</a>
+        </div>
+    </main>
+    <footer>
 
+    </footer>
 </body>
 </html>
